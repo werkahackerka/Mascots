@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>Maskotki</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <center>
+      <h1 class="napis">MASKOTKI</h1>
+    </center>
+
+    <p id="demo"></p>
+    <div id="maskotki">
+
+      <div class="maskotka">
+        <div class="maskotkaImg">
+          <img src=""></img>
+        </div>
+        <div class="maskotkaInfo">
+
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      const dbParam = JSON.stringify({table:"mascots",limit:20});
+      const xmlhttp = new XMLHttpRequest();
+
+      let writeData = function() {
+        myObj = JSON.parse(localStorage["json"]);
+        let maskotki = '';
+        for (let x in myObj["mascots"]) {
+          maskotki += '<div class="maskotka" id="maskotka"><div class="maskotkaImg"><img src="'
+            + myObj["mascots"][x].img + '"></img></div><div class="maskotkaButton">' + myObj["mascots"][x].name + '</div><div class="maskotkaInfo" id="maskotkaInfo"><table border=2>'
+              + '<tr><td>Numer: </td>' + '<td>' + myObj["mascots"][x].id + '</td></tr>'
+              + '<tr><td>Nazwa: </td>' + '<td>' + myObj["mascots"][x].name + '</td></tr>'
+              + '<tr><td>Opis: </td>' + '<td>' + myObj["mascots"][x].description + '</td></tr><br>'
+              + '<tr><td>Informacje dodatkowe:</td></tr>'
+              + '<tr><td>- Kolor: </td>' + '<td>' + myObj["mascots"][x].main_color + '</td></tr>'
+              + '<tr><td>- Waga: </td>' + '<td>' + myObj["mascots"][x].weight_kg + 'kg</td></tr>'
+              + '<tr><td>- Miękkość: </td>' + '<td>' + myObj["mascots"][x].softness + '</td></tr>'
+              + '<tr><td>- Wymiary:</td></tr>'
+              + '<tr><td>--- Szerokość: </td>' + '<td>' + myObj["mascots"][x].size.width_in_cm + 'cm</td></tr>'
+              + '<tr><td>--- Wysokość: </td>' + '<td>' + myObj["mascots"][x].size.heigh_in_cm + 'cm</td></tr>'
+              + '<tr><td>- Ocena: </td>' + '<td>' + myObj["mascots"][x].grade + '</td></tr>'
+              + '</table></div></div>';
+        }
+        document.getElementById("maskotki").innerHTML = maskotki;
+      }
+
+      xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+          if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            localStorage["json"] = this.responseText;
+            writeData();
+          }
+          else {
+            writeData();
+          }
+      }
+      xmlhttp.open("GET", "https://api.npoint.io/eda9e1fda53d44014001");
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send("x=" + dbParam);
+    </script>
+
+  </body>
+</html>

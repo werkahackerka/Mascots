@@ -1,0 +1,86 @@
+@media (min-width: 500px) {
+  #maskotki {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 800px) {
+  #maskotki {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  #maskotki {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+body {
+  background: linear-gradient(180deg, rgba(130,183,255,1) 0%, rgba(158,255,165,1) 100%);
+  height: 200vh;
+}
+
+.napis {
+  color: white;
+  font-family: fantasy;
+  font-size: 5vw;
+  text-shadow: 15px 15px 100px black;
+}
+
+#maskotki {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+}
+
+.maskotka {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+
+  max-width: 350px;
+  max-height: 265px;
+  padding: 10px;
+  justify-self: center;
+
+  background: linear-gradient(340deg, rgba(130,183,255,1) 0%, rgba(214,245,255,1) 100%);
+  transition: 0.5;
+}
+
+.maskotkaImg {
+  grid-row: 1;
+}
+
+.maskotkaButton {
+  grid-row: 2;
+  height: 50px;
+  text-align: center;
+}
+
+.maskotkaButton:hover {
+  cursor: pointer;
+}
+
+.maskotkaButton:hover ~ #maskotkaInfo {
+  display: inline;
+}
+
+.maskotkaInfo {
+  display: none;
+  grid-row: 3;
+}
+
+img {
+  width: 350px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.maskotkaImg:hover ~ #maskotkaInfo {
+  display: inline;
+}
+
+.maskotka:hover{
+  max-height: none;
+}
